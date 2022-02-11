@@ -1,5 +1,6 @@
 import React from 'react'
-import { RouteComponentProps, withRouter } from 'react-router'
+import { useParams } from 'react-router-dom';
+//import { RouteComponentProps, withRouter } from 'react-router'
 import { Button, Container, Grid, Image } from 'semantic-ui-react'
 import { Product } from '../model'
 
@@ -8,8 +9,10 @@ interface Props {
     addOrder: (product: Product, ammount?: number) => void
 }
 
-export default withRouter(function Product(props: RouteComponentProps & Props) {
-    const product = props.getProduct(parseInt((props.match.params as any).id));
+export default (function Product(props: Props) {
+    const params = useParams();
+    const product = props.getProduct(parseInt((params as any).id));
+    
     if (!product) {
         return (
             <div>Ne postoji proizvod sa datim ID-em.</div>

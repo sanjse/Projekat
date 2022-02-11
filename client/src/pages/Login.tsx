@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
-import { RouteComponentProps, withRouter } from 'react-router'
+//import { RouteComponentProps, withRouter } from 'react-router'
 import { Button, Container, Form } from 'semantic-ui-react'
 import { User } from '../model'
 import axios from 'axios';
 import { SERVER_URL } from '../constants';
+import { useNavigate, useParams } from 'react-router-dom';
 
 axios.defaults.withCredentials = true;
 interface Props {
     setUser: (user: User) => void
 }
 
-export default withRouter(function Login(props: Props & RouteComponentProps) {
+export default (function Login(props: Props) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const params = useParams();
+    let navigate = useNavigate();
     const onSubmit = async () => {
         try {
             const result = await axios.post(SERVER_URL + '/login', { username: username, password: password });
@@ -40,7 +43,7 @@ export default withRouter(function Login(props: Props & RouteComponentProps) {
             </Form>
             <br /><br /><br /><br />
             <Button className='dugme' fluid color='pink' onClick={() => {
-                props.history.push('/register')
+                navigate('/register')
             }}>Nemate nalog?</Button>
         </Container>
     )
