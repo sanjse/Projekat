@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
-import { Redirect, Route, Switch } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -136,24 +136,25 @@ function App() {
   return (
     <div className='navBar'>
       <Navbar full={user !== undefined} logout={() => { setUser(undefined) }} admin={user?.category === 'admin'} />
-
-      <Switch>
-        <Route path='/login'>
+     
+      <Routes>
+        <Route path='/login' element=
           {user ? (
-            <Redirect to='/' />
+            <Navigate to='/' />
           ) : (
             <Login setUser={setUser} />
-          )}
-        </Route>
-        <Route path='/register'>
-          {user ? (
-            <Redirect to='/' />
-          ) : (
+          )} 
+          />
+       
+        <Route path='/register' element=
+        {user ? (
+          <Navigate to='/' />
+        ) : (
             <Register setUser={setUser} />
           )}
 
-        </Route>
-        <Route path='/products/:id'>
+        />
+        <Route path='/products/:id' element=
           {
             user ? (
               <ProductPage getProduct={getProduct} addOrder={addOrder} />
@@ -162,8 +163,8 @@ function App() {
             )
           }
 
-        </Route>
-        <Route path='/products'>
+        />
+        <Route path='/products' element=
           {
             user ? (
               <Products products={products} addOrder={addOrder} categories={categories} />
@@ -171,26 +172,26 @@ function App() {
               <Login setUser={setUser} />
             )
           }
-        </Route>
-        <Route path='/admin'>
+        />
+        <Route path='/admin' element=
           {
             (user && user.category === 'admin') ? (
               <Admin deleteProduct={deleteProduct} carts={carts} products={products} createProduct={createProduct} updateProduct={updateProduct} categories={categories} />
             ) : (
-              <Redirect to='/login' />
+              <Navigate to='/login' />
             )
           }
-        </Route>
-        <Route path='/orders'>
+        />
+        <Route path='/orders' element=
           {
             (user && user.category === 'admin') ? (
               <Orders carts={carts} />
             ) : (
-              <Redirect to='/login' />
+              <Navigate to='/login' />
             )
           }
-        </Route>
-        <Route path='/cart'>
+        />
+        <Route path='/cart' element=
           {
             user ? (
               <CartPage orders={items} deleteOrder={deleteOrder} orderUp={orderUp} changeOrder={updateOrder} />
@@ -198,11 +199,11 @@ function App() {
               <Login setUser={setUser} />
             )
           }
-        </Route>
-        <Route path='/'>
-          <Home />
-        </Route>
-      </Switch>
+        />
+        <Route path='/' element={<Home />} />
+      
+      </Routes>
+     
     </div>
   );
 }

@@ -106,7 +106,7 @@ export default function Cart(props: Props) {
                     props.orders.length > 0 && (
                         <>
                             <Grid.Row className='white' centered>
-                                <h3>Order details</h3>
+                                <h3>Detalji porudzbine</h3>
                             </Grid.Row>
                             <Grid.Row className='white' centered>
                                 <Grid.Column>
@@ -118,13 +118,13 @@ export default function Cart(props: Props) {
                                         <Form.Input value={phone} onChange={e => {
                                             const value = e.currentTarget.value;
                                             setPhone(value);
-                                        }} fluid required label='Phone' type='tel' />
+                                        }} fluid required label='Broj telefona' type='tel' />
                                         <Form.Input value={address} onChange={e => {
                                             const value = e.currentTarget.value;
                                             setAddress(value);
-                                        }} fluid required label='Adress' placeholder='State, city, street name and number, apartment number' />
-                                        <Form.Input label='Total price' readOnly value={totalPrice}></Form.Input>
-                                        <Form.Button  >Order</Form.Button>
+                                        }} fluid required label='Adresa' />
+                                        <Form.Input label='Ukupna cena' readOnly value={totalPrice}></Form.Input>
+                                        <Form.Button  >Poruci</Form.Button>
                                     </Form>
                                 </Grid.Column>
                             </Grid.Row>
